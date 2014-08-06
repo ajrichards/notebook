@@ -1,9 +1,6 @@
 #!/usr/bin/Rscript
-## this example is adopted from Marc Kery's Book
-## Introduction to WinBUGS for ecologists (pp119)
 
 ## basic variables
-## sigma is the residual standard deviation
 ngroups <- 5
 nsample <- 10
 popMeans <- c(50,40,45,55,60)
@@ -17,9 +14,6 @@ x <- rep(1:5,rep(nsample,ngroups))
 ## create design matrix
 X <- as.matrix(model.matrix(~as.factor(x) -1))
 y <- as.numeric(X%*% as.matrix(popMeans) + resid)
-
-print(x)
-print(y)
 
 ## plot the data
 pdf("svl-data.pdf",height=6,width=6)

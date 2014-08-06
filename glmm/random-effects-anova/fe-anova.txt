@@ -1,0 +1,25 @@
+
+model {
+# Priors
+for (i in 1:5){ # Implicitly define alpha as a vector
+alpha[i] ~ dnorm(0, 0.001)
+}
+sigma ~ dunif(0, 100)
+
+# Likelihood
+for (i in 1:50) {
+    y[i] ~ dnorm(mean[i], tau)
+    mean[i] <- alpha[x[i]]
+}
+
+# Derived quantities
+tau <- 1 / ( sigma * sigma)
+effe2 <- alpha[2] - alpha[1]
+effe3 <- alpha[3] - alpha[1]
+effe4 <- alpha[4] - alpha[1]
+effe5 <- alpha[5] - alpha[1]
+# Custom hypothesis test / Define your own contrasts
+test1 <- (effe2+effe3) - (effe4+effe5) # Equals zero when 2+3 4+5
+test2 <- effe5 - 2 * effe4 # Equals zero when effe5 2*effe4
+}
+

@@ -2,6 +2,7 @@
 \usepackage{amsmath,graphicx,fullpage,hyperref,color,bm}
 \usepackage[utf8]{inputenc}
 \usepackage{mdframed}
+\usepackage{verbatim}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.50}
 \definecolor{darkgreen}{rgb}{0.0,0.35,0.0}
 \hypersetup{colorlinks=true, linkcolor=darkblue,citecolor=darkblue, urlcolor=darkblue}
@@ -20,18 +21,34 @@ Last updated: \today
 \tableofcontents
 \newpage
 
-\section{Problem and data}
-This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists.  Here we explore a random effects model with ANOVA (a t-test applied more than two groups).  First we generate the data---five populations of snakes each with $n=10$ and a single measured co-variate.  See the function \texttt{generateData.R}.  
+\chapter{Problem and data}
+\section{About}
+This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists \cite{Kery10}.  Here we explore a random effects model with ANOVA (a t-test applied more than two groups).  First we generate the data---five populations of snakes each with $n=10$ and a single measured co-variate.  See the function \texttt{generateData.R}.
 
-\begin{figure}
+\tiny
+\verbatiminput{generateData.R}
+\normalsize
+
+\begin{figure}[!ht]
 \begin{center}
-\includegraphics[ext=.pdf,scale = 0.9]{"svl-data"}
+\includegraphics[ext=.pdf,scale = 0.6]{"svl-data"}
 \end{center}
 \caption{The distributions of the five populations of snakes with respect to snout-vent-length}
 \end{figure}
 
-\section{Fixed effects ANOVA}
-\subsection{Maximum likelihood analysis}
+\section{Fixed and random effects ANOVA}
+The means parameterization for the one-way ANOVA:
+%
+\begin{align}
+y_{i} &= \alpha_{j(i)} + \epsilon_{i}\\
+\epsilon_{i} &\sim \mathcal{N}(0,\sigma^{2})\\
+\alpha_{j(i)} &\sim \mathcal{N}(\mu,\tau^{2}) \label{re-anova}
+\end{align}
+%
+$y_{i}$ refers to the \texttt{svl} of snake $i$ in population $j$.  Eqn~\ref{re-anova} is the key assumption that moves this from a fixed-effects to a random effects ANOVA.  It is not always clear whether we should be using a fixed-effect or random-effects ANOVA, in fact statisticians have differing opinions.  Random effects are often used for things like \texttt{year}, \texttt{month}, or \texttt{location}.  The decision has to do with whether we want to generalize our conclusions to the larger (unsampled) population as well.
+
+\chapter{Fixed effects ANOVA}
+\section{Maximum likelihood analysis}
 % INCLUDE svl.csv
 
 <<fixed-anova-ml>>=
@@ -39,7 +56,36 @@ data = read.csv("svl.csv")
 print(anova(lm(data$y~as.factor(data$x))))
 cat("\n")
 print(summary(lm(data$y~as.factor(data$x)))$coeff,dig=3)
+cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
 @
 
+\section{MCMC analysis}
+% INCLUDE fe-anova-out.txt, fe-anova-densities.pdf, fe-anova-chains.pdf
+
+\tiny
+\verbatiminput{fe-anova-out.txt}
+\normalsize
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.6]{"fe-anova-chains"}
+\end{center}
+\caption{The MCMC chains}
+\end{figure}
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.6]{"fe-anova-densities"}
+\end{center}
+\caption{MCMC densities}
+\end{figure}
+
+\chapter{Random effects ANOVA}
+
+
+
+\begin{thebibliography}{1}
+  \bibitem{Kery10} M. Kery. {\em Introduction to WinBUGS for Ecologists}, Elsevier Academic Press, 2010.
+\end{thebibliography}
 
 \end{document}

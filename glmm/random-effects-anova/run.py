@@ -18,8 +18,8 @@ from lpedit import NoGuiAnalysis
 files = [('random-effects-anova.nw','r')]
 
 ## clean first
-if os.path.isdir("_latex"):
-    shutil.rmtree("_latex")
+#if os.path.isdir("_latex"):
+#    shutil.rmtree("_latex")
 
 ## load files into project
 nga = NoGuiAnalysis()
