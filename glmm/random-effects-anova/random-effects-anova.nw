@@ -1,0 +1,45 @@
+\documentclass[a4paper,10pt]{report}
+\usepackage{amsmath,graphicx,fullpage,hyperref,color,bm}
+\usepackage[utf8]{inputenc}
+\usepackage{mdframed}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.50}
+\definecolor{darkgreen}{rgb}{0.0,0.35,0.0}
+\hypersetup{colorlinks=true, linkcolor=darkblue,citecolor=darkblue, urlcolor=darkblue}
+\hypersetup{pdfauthor={}, pdftitle={report}}
+\usepackage{titlesec}\titleformat{\chapter}{\centering\normalfont\Large\bfseries}{\thechapter}{1em}{}
+\begin{document}
+
+%%%%%  
+\begin{flushleft}
+\textbf{Random effects ANOVA}\\
+Created by: AJ Richards\\
+Last updated: \today
+\end{flushleft}
+\medskip\hrule height 1pt
+\vspace{7pt}
+\tableofcontents
+\newpage
+
+\section{Problem and data}
+This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists.  Here we explore a random effects model with ANOVA (a t-test applied more than two groups).  First we generate the data---five populations of snakes each with $n=10$ and a single measured co-variate.  See the function \texttt{generateData.R}.  
+
+\begin{figure}
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.9]{"svl-data"}
+\end{center}
+\caption{The distributions of the five populations of snakes with respect to snout-vent-length}
+\end{figure}
+
+\section{Fixed effects ANOVA}
+\subsection{Maximum likelihood analysis}
+% INCLUDE svl.csv
+
+<<fixed-anova-ml>>=
+data = read.csv("svl.csv")
+print(anova(lm(data$y~as.factor(data$x))))
+cat("\n")
+print(summary(lm(data$y~as.factor(data$x)))$coeff,dig=3)
+@
+
+
+\end{document}

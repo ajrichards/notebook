@@ -62,3 +62,10 @@ nosetests.xml
 .mr.developer.cfg
 .project
 .pydevproject
+
+*/_latex/*
+*/_sphinx/*
+*/*/_latex/*
+*/*/_sphinx/*
+*/*/*/_latex/*
+*/*/*/_sphinx/*
