@@ -61,9 +61,10 @@ print('bestEstimates %s'%(tcg.bestEst))
 
 \section{MCMC via PyMC}
 <<mcmc-pymc>>=
-## the mixing parameter                                                                                                                                                                                            
+## the mixing parameter
+                                                                                     
 pi = mc.Uniform('pi',lower=0,upper=1)
-delta = mc.Bernoulli( "delta",p=pi,size=x.size) # produces 1 with proportion p.                                                                                                                                    
+delta = mc.Bernoulli( "delta",p=pi,size=x.size) # produces 1 with proportion p.
 
 ## other model parameters
 sigma = mc.Uniform("sigma", 0.0,0.5)
@@ -143,7 +144,6 @@ plt.savefig('TwoComponentGaussSummary.png')
 \end{figure}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 
 
 \end{document}
