@@ -87,9 +87,8 @@ cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
 \begin{center}
 \includegraphics[ext=.pdf,scale = 0.6]{"re-svl-data"}
 \end{center}
-\caption{The distributions of the five populations of snakes with respect to snout-vent-length}
+\caption{The distributions of the 10 populations of snakes with respect to snout-vent-length}
 \end{figure}
-
 
 
 
