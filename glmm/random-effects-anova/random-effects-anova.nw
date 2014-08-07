@@ -28,10 +28,10 @@ This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists
 \tiny
 \verbatiminput{generateData.R}
 \normalsize
-
+% INCLUDE fe-svl-data.pdf
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[ext=.pdf,scale = 0.6]{"svl-data"}
+\includegraphics[ext=.pdf,scale = 0.6]{"fe-svl-data"}
 \end{center}
 \caption{The distributions of the five populations of snakes with respect to snout-vent-length}
 \end{figure}
@@ -49,10 +49,10 @@ $y_{i}$ refers to the \texttt{svl} of snake $i$ in population $j$.  Eqn~\ref{re-
 
 \chapter{Fixed effects ANOVA}
 \section{Maximum likelihood analysis}
-% INCLUDE svl.csv
+% INCLUDE fe-svl.csv
 
 <<fixed-anova-ml>>=
-data = read.csv("svl.csv")
+data = read.csv("fe-svl.csv")
 print(anova(lm(data$y~as.factor(data$x))))
 cat("\n")
 print(summary(lm(data$y~as.factor(data$x)))$coeff,dig=3)
@@ -81,6 +81,16 @@ cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
 \end{figure}
 
 \chapter{Random effects ANOVA}
+
+% INCLUDE re-svl-data.pdf
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.6]{"re-svl-data"}
+\end{center}
+\caption{The distributions of the five populations of snakes with respect to snout-vent-length}
+\end{figure}
+
+
 
 
 
