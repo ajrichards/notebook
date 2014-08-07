@@ -28,11 +28,11 @@ write.csv(xyFrame,file="fe-svl.csv",row.names=FALSE)
 npop <- 10 
 nsample <- 12
 n <- npop * nsample
-
 popGrandMean <- 50
 popSd <- 5
 popMeans <- rnorm(n=npop,mean=popGrandMean,sd=popSd)
 sigma <- 3
+
 resid <- rnorm(n,0,sigma)
 x <- rep(1:npop, rep(nsample, npop))
 

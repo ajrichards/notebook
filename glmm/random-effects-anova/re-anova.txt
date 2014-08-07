@@ -3,7 +3,7 @@ model{
 # priors and some derived things
 for (i in 1:npop){
     pop.mean[i] ~ dnorm(mu,tau.group) # prior for population means
-    effe[i] <- pop.mean[i] – mu       # population effects as derived quant’s
+    effe[i] <- pop.mean[i] - mu       # population effects as derived quant’s
 }
 
 mu ~ dnorm(0,0.001)                   # hyperprior for grand mean svl

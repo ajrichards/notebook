@@ -2,7 +2,7 @@
 \usepackage{amsmath,graphicx,fullpage,hyperref,color,bm}
 \usepackage[utf8]{inputenc}
 \usepackage{mdframed}
-\usepackage{verbatim}
+\usepackage{fancyvrb}
 \definecolor{darkblue}{rgb}{0.0,0.0,0.50}
 \definecolor{darkgreen}{rgb}{0.0,0.35,0.0}
 \hypersetup{colorlinks=true, linkcolor=darkblue,citecolor=darkblue, urlcolor=darkblue}
@@ -23,15 +23,18 @@ Last updated: \today
 
 \chapter{Problem and data}
 \section{About}
-This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists \cite{Kery10}.  Here we explore a random effects model with ANOVA (a t-test applied more than two groups).  First we generate the data---five populations of snakes each with $n=10$ and a single measured co-variate.  See the function \texttt{generateData.R}.
+% INCLUDE generateData.R
+This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists \cite{Kery10}.  Here we explore fixed and random effects models with ANOVA (a t-test applied more than two groups).  First we generate the data--- with a number of populations of snakes  (\texttt{ngroups}) each with an equal number of \texttt{nsample} and a single measured co-variate \texttt{svl}.  From within the function \href{run:generateData.R}{generateData.R} the following snippets show the parameters used to create the fixed-effects and random effects data sets.
 
 \tiny
-\verbatiminput{generateData.R}
+\VerbatimInput[firstline=3,lastline=10,rulecolor=\color{blue}]{generateData.R}
+\VerbatimInput[firstline=27,lastline=34,rulecolor=\color{blue}]{generateData.R}
 \normalsize
+
 % INCLUDE fe-svl-data.pdf
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[ext=.pdf,scale = 0.6]{"fe-svl-data"}
+\includegraphics[ext=.pdf,scale=0.4]{"fe-svl-data"}
 \end{center}
 \caption{The distributions of the five populations of snakes with respect to snout-vent-length}
 \end{figure}
@@ -50,7 +53,6 @@ $y_{i}$ refers to the \texttt{svl} of snake $i$ in population $j$.  Eqn~\ref{re-
 \chapter{Fixed effects ANOVA}
 \section{Maximum likelihood analysis}
 % INCLUDE fe-svl.csv
-
 <<fixed-anova-ml>>=
 data = read.csv("fe-svl.csv")
 print(anova(lm(data$y~as.factor(data$x))))
@@ -58,21 +60,23 @@ cat("\n")
 print(summary(lm(data$y~as.factor(data$x)))$coeff,dig=3)
 cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
 @
+Be remined that R fits and effects parameterization of ANOVA.
 
 \section{MCMC analysis}
-% INCLUDE fe-anova-out.txt, fe-anova-densities.pdf, fe-anova-chains.pdf
-
+% INCLUDE fe-anova-out.txt
+With BUGS we generally fit a mean parameterization and calculate the differences between populations (effects) using derived quantities.  See the script \href{run:fixedEffectAnova.R}{fixedEffectAnova.R} for more details.  Here is the output.
 \tiny
-\verbatiminput{fe-anova-out.txt}
+\VerbatimInput[rulecolor=\color{blue}]{fe-anova-out.txt}
 \normalsize
-
+We see that the results are essentially the same.  Here are common plots used to examine the posterior.
+% INCLUDE fe-anova-chains.pdf, fe-anova-densities.pdf
 \begin{figure}[!ht]
 \begin{center}
-\includegraphics[ext=.pdf,scale = 0.6]{"fe-anova-chains"}
+\includegraphics[ext=.pdf,scale = 0.4]{"fe-anova-chains"}
 \end{center}
 \caption{The MCMC chains}
 \end{figure}
-
+%
 \begin{figure}[!ht]
 \begin{center}
 \includegraphics[ext=.pdf,scale = 0.6]{"fe-anova-densities"}
@@ -81,7 +85,7 @@ cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
 \end{figure}
 
 \chapter{Random effects ANOVA}
-
+The difference here is the we assume that population means come from a Gaussian distribution.
 % INCLUDE re-svl-data.pdf
 \begin{figure}[!ht]
 \begin{center}
@@ -90,8 +94,49 @@ cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
 \caption{The distributions of the 10 populations of snakes with respect to snout-vent-length}
 \end{figure}
 
+\section{Maximum likelihood analysis}
+% INCLUDE re-svl.csv
+<<effect-anova-ml>>=
+library("lme4")
+data = read.csv("re-svl.csv")
+pop <- as.factor(data$x)
+lme.fit <- lmer(data$y~1+1 | pop, REML=TRUE)
+print(lme.fit)
+print(ranef(lme.fit))
+@
 
+\section{MCMC analysis}
+\tiny
+\VerbatimInput[rulecolor=\color{blue}]{re-anova-out.txt}
+\normalsize
 
+The truth of the among population \texttt{svl} variation is 5.  In the Bayesian analysis we look at \texttt{sigma.group} and for the REML estimate \texttt{pop (intercept)}.
+
+% INCLUDE re-anova-chains.pdf, re-anova-densities.pdf
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.4]{"re-anova-chains"}
+\end{center}
+\caption{The MCMC chains}
+\end{figure}
+%
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.6]{"re-anova-densities"}
+\end{center}
+\caption{MCMC densities}
+\end{figure}
+
+\chapter{Reproducibility}
+
+To reproduce this document.
+
+\begin{itemize}
+  \item \begin{verbatim}$ Rscript generateData.R \end{verbatim}
+  \item \begin{verbatim}$ Rscript fixedEffectAnova.R > fe-anova-out.txt\end{verbatim}
+  \item \begin{verbatim}$ Rscript randomEffectAnova.R > re-anova-out.txt\end{verbatim}
+  \item \begin{verbatim}$ python run.py\end{verbatim}
+\end{itemize}
 
 \begin{thebibliography}{1}
   \bibitem{Kery10} M. Kery. {\em Introduction to WinBUGS for Ecologists}, Elsevier Academic Press, 2010.
