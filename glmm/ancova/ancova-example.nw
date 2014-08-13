@@ -1,0 +1,155 @@
+%A minimial Sweave template
+\documentclass[a4paper]{article}
+\usepackage{amsmath,pgf,graphicx,textcomp,bm}
+\usepackage[utf8]{inputenc}
+\usepackage[section]{placeins}
+
+\title{ANCOVA using JAGs}
+\author{borrowed from M. Kery's book}
+
+\begin{document} 
+\maketitle 
+
+\section*{About}
+
+I am copying some text directly from the books as these are notes and not intended as anything else.  Please refer to the \textit{Introduction to WinBUGs for Ecologists} book for the the example (start pp 142) and \textit{Pattern Recognition and Machine Learning} for notation.
+
+The t-test, simple linear regression and ANOVA models are \textit{Models of the mean}---they are just special cases of the GLM.  The model expresses a continuous response as a linear combination of the effects of discrete and/or continuous explanatory variables plus an additional random contribution.  When both types of explanitory variables are used the model is sometimes referred to as an ANCOVA.  The critters in this example are Asp Vipers (\textit{Vipera aspis}) and we are interested in the population-specific difference in terms of body mass and body length.  
+
+Here, we fit the relationship between \texttt{body mass} and \texttt{body length} of the asp viper in three populations: Pyrenees, Massif Central, and the Jura mountains.  
+
+\section{Model}
+I write the following relationship in such a way that reminds us is common to fit a non-linear transform of the data ($\phi(x)$).
+
+\begin{align}
+  t_{i} &= w_{0j(i)} + \mathbf{w}_{j(i)} * \mathbf{x}_{i} + \epsilon_{i} \\
+        &= y(\mathbf{x}_{i},\mathbf{w}_{j(i)}) + \epsilon_{i} \\
+        &= \left( w_{0j(i)} + \sum^{M-1}_{k=1} w_{kj(i)} \phi(\mathbf{x}_{i}) \right) + \epsilon_{i}
+\end{align}
+%
+So $w_{0}$ is the intercept, $\mathbf{w}$ are the regression coefficients and $\epsilon$ is the error term.  The total number of parameters in the model are $M$. Also, we specify that,
+\begin{equation}
+\epsilon_{i} \sim \mathcal{N}(0,\beta^{-1})
+\end{equation}
+where $\beta$ is the precision.  In this example, $t_{i}$ is the body mass of indivdaul $i$, while $w_{0j(i)}$ and $w_{kj(i)}$ are the intercept and slope respectively.
+
+\section*{Generate data}
+First, we need to generate some realistic data.
+
+% code include example
+<<label=generate-data>>=
+nGroups <- 3  
+nSample <- 10
+n <- nGroups * nSample
+x <- rep(1:nGroups, rep(nSample,nGroups)) 
+pop <- factor(x,labels = c("Pyrenees","Massive", "Jura"))
+bodyLength <- runif(n,45,70)
+xMat <- model.matrix(~pop*bodyLength)
+w <- c(-250,150,200,6,-3,-4)
+linPred <- xMat[,]%*%w
+resid   <- rnorm(n=n,mean=0,sd=10)
+mass <- linPred + resid
+print(mass)
+
+pdf("lengthMass.pdf",height=6,width=6)
+matplot(cbind(bodyLength[1:10],bodyLength[11:20],
+        bodyLength[21:30]),cbind(mass[1:10],mass[11:20],
+        mass[21:30]),ylim=c(0,max(mass)),ylab="Body mass (g)",
+        xlab="Body length (cm)",col=c("Red","Green","Blue"),
+        pch=c("P","M","J"),las=1,cex=1.2,cex.lab=1.5)
+@
+
+\begin{figure}[!ht]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.5]{"lengthMass"}
+\end{center}
+%\caption{Body length vs Body mass for the vipers}
+\end{figure}
+
+\section*{Analysis}
+
+The effects parameterization of this model is where indices P,M,J and L are Pyrenee, Massif, Jura and body length respectively.
+
+\begin{align}
+  t_{i} &= w_{0P} + w_{1} * x_{M(i)} + w_{2} * x_{J(i)} + w_{3} * x_{L(i)}  \\
+        &+ w_{4} * x_{L(i)} * x_{M(i)} + w_{5} * x_{L(i)} * x_{J(i)} + \epsilon_{i}
+\end{align}
+%
+The interpretation here is that $w_{0P}$ is the expected mass of snakes in the Pyrenee, $\beta_{1}$ is the difference between the expected mass in the Massif and the Pyrenee etc.  The interaction terms were included.
+
+\subsection*{In JAGS}
+
+Here the author fits the mean parameterization, which involved specifying three separate linear regressions for each mountain range.  Then the effects (or differences w.r.t. the Pyrenee) are easy to get.
+
+<<jags-analysis>>=
+# Define Model
+w
+cat("And the residual SD was 10 \n")
+sink("lm-146.txt")
+cat("
+model{
+
+# priors
+for (i in 1:nGroups){
+    w0[i] ~ dnorm(0,0.001)
+    w[i]  ~ dnorm(0,0.001)
+}
+
+sigma ~ dunif(0,100)
+tau <- 1 / (sigma * sigma) 
+
+# likelihood
+for (i in 1:n){
+    mass[i] ~ dnorm(mu[i],tau)
+    mu[i] <- w0[pop[i]] + w[pop[i]]*bodyLength[i] 
+}
+
+# derived quantities (i.e. intercept jura vs pyr)
+a.effe2 <- w0[2] - w0[1]   # intercept massif vs. Pyr.
+a.effe3 <- w0[3] - w0[1]   # intercept jura vs. Pyr.
+b.effe2 <- w[2] - w[1]     # slope massif vs. Pyr.
+b.effe3 <- w[3] - w[1]     # slope jura vs. Pyr.
+}
+",fill=TRUE)
+sink()
+
+# bundle data
+jagsData <- list(mass=as.numeric(mass),pop=as.numeric(pop),
+                 bodyLength=as.numeric(scale(bodyLength)),
+                 nGroups=max(as.numeric(pop)),n=n)
+
+#Inits function
+inits <- function(){ list(w0=rnorm(nGroups,0,2),
+                          w=rnorm(nGroups,1,1),
+                          sigma=rlnorm(1))}
+
+# Parameters to estimate
+params <- c("w0", "w", "sigma", "a.effe2","a.effe3","b.effe2","b.effe3")
+
+# MCMC settings
+ni <- 1200; nb <- 200; nt <- 2; nc <- 3
+
+# run it
+library(R2jags)
+out <- jags(jagsData,inits=inits,parameters.to.save=params,
+            model.file="lm-146.txt",n.thin=nt,
+            n.chains=nc,n.burnin=nb,n.iter=ni)
+
+print(out,dig=3)
+print("For comparison (using lm)...")
+print(lm(mass ~ pop * as.numeric(scale(bodyLength)))$coefficients,dig=4)
+@
+
+Intrepreting the results...
+
+\begin{tabular}{|l|c|c|}
+R                     & JAGS   & description               \\
+\hline
+Intercept             & w0[1]  & model intercept           \\
+popMassive            & a.eff2 & intercept massif vs. pyr  \\
+popJura               & a.eff3 & intercept jura vs. pyr    \\
+bodyLength            & w[1]   & reg. coeff of length      \\
+popMassive:bodyLength & b.eff2 & slope massif vs. pyr      \\
+popJura:bodyLength    & b.eff3 & slope jura vs. pyr
+\end{tabular}
+\end{document}
