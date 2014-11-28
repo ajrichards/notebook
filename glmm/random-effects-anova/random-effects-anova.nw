@@ -24,7 +24,7 @@ Last updated: \today
 \chapter{Problem and data}
 \section{About}
 % INCLUDE generateData.R
-This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists \cite{Kery10}.  Here we explore fixed and random effects models with ANOVA (a t-test applied more than two groups).  First we generate the data--- with a number of populations of snakes  (\texttt{ngroups}) each with an equal number of \texttt{nsample} and a single measured co-variate \texttt{svl}.  From within the function \href{run:generateData.R}{generateData.R} the following snippets show the parameters used to create the fixed-effects and random effects data sets.
+This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists \cite{Kery10}.  Here we explore fixed and random effects models with ANOVA (a t-test applied more than two groups).  First we generate the data--- with a number of populations of snakes  (\texttt{ngroups}) each with an equal number of \texttt{nsample} and a single measured co-variate \texttt{svl}.  From within the function \href{run:generateData.R}{generateData.R} the following snippets show the parameters used to create the fixed-effects and random effects data sets.  In this problem we are interested in whether or not the five population of snakes differ.
 
 \tiny
 \VerbatimInput[firstline=3,lastline=10,rulecolor=\color{blue}]{generateData.R}
@@ -40,7 +40,7 @@ This is an example from Marc Kery's book "Introduction to WinBUGS for ecologists
 \end{figure}
 
 \section{Fixed and random effects ANOVA}
-The means parameterization for the one-way ANOVA:
+In a random effects model the \textbf{effects} (or group means) are constrained to come from some distribution (usually Gaussian or Bernoulli).  The means parameterization for the one-way ANOVA:
 %
 \begin{align}
 y_{i} &= \alpha_{j(i)} + \epsilon_{i}\\
@@ -48,19 +48,37 @@ y_{i} &= \alpha_{j(i)} + \epsilon_{i}\\
 \alpha_{j(i)} &\sim \mathcal{N}(\mu,\tau^{2}) \label{re-anova}
 \end{align}
 %
-$y_{i}$ refers to the \texttt{svl} of snake $i$ in population $j$.  Eqn~\ref{re-anova} is the key assumption that moves this from a fixed-effects to a random effects ANOVA.  It is not always clear whether we should be using a fixed-effect or random-effects ANOVA, in fact statisticians have differing opinions.  Random effects are often used for things like \texttt{year}, \texttt{month}, or \texttt{location}.  The decision has to do with whether we want to generalize our conclusions to the larger (unsampled) population as well.
+$y_{i}$ refers to the \texttt{svl} of snake $i$ in population $j$.  $\alpha_{j(i)}$ is the expected \texttt{svl} of a snake in population $j$ and the residual $\epsilon_{i}$ is the random deviation of snake $i$ from its population mean $\alpha_{j(i)}$.  Eqn~\ref{re-anova} is the key assumption that moves this from a fixed-effects to a random effects ANOVA.  If we do not specify that the population means $\alpha_{j(i)}$ come from a distribution we are using a fixed-effects ANOVA.  It is not always clear whether we should be using a fixed-effect or random-effects ANOVA, in fact statisticians have differing opinions.  Random effects are often used for things like \texttt{year}, \texttt{month}, or \texttt{location}.  Some opinions say the decision has to do with whether we want to generalize our conclusions to the larger (unsampled population.  Another train of thought is that if we have reason to believe that there might be a difference between populations, but the populations themselves are quite similar then it may be appropriate to use random-effects.  Another way to analyze these data is pool the samples.  If we do this we assume that there are no effects.  If we use fixed effects we assume the effects are completely independent and we can see random effects setup as a compromise between the two.  In this example we will use Akaike information criterion (AIC) to help make a determination.
 
 \chapter{Fixed effects ANOVA}
 \section{Maximum likelihood analysis}
 % INCLUDE fe-svl.csv
 <<fixed-anova-ml>>=
 data = read.csv("fe-svl.csv")
-print(anova(lm(data$y~as.factor(data$x))))
+print("AVOVA-results")
+fit = lm(data$y~as.factor(data$x))
+print(anova(fit))
 cat("\n")
-print(summary(lm(data$y~as.factor(data$x)))$coeff,dig=3)
-cat("Sigma:", summary(lm(data$y~as.factor(data$x)))$sigma, "\n")
+print("Linear-model-effects-parameterization")
+print(summary(fit)$coeff,dig=3)
+cat("Sigma:", summary(fit)$sigma, "\n")
+print(paste('AIC', AIC(fit)))
+cat("\n")
+print("Linear-model-means-parameterization")
+fit = lm(data$y~as.factor(data$x)-1)
+print(summary(fit)$coeff,dig=3)
+cat("Sigma:", summary(fit)$sigma, "\n")
+print(paste('AIC', AIC(fit)))
+
+print("Significance")
+library(nlme)
+m1 <- lme(data$s,random=~1|ring)
+print(anova(m1))
+
+
 @
-Be remined that R fits and effects parameterization of ANOVA.
+
+Be reminded that R fits an effects parameterization of ANOVA by default so the effects are relative to the first population.  This means that first population in \texttt{x} is set to zero and the relative differences are reported.  The means parameterization is straight from the data.  If you look above in the simulated data $\sigma=3.0$ and the population means were 50,40,45,55 and 60.  The null hypothesis is that the means are the same so the significant \textit{p}-values reject that null.
 
 \section{MCMC analysis}
 % INCLUDE fe-anova-out.txt
@@ -101,8 +119,10 @@ library("lme4")
 data = read.csv("re-svl.csv")
 pop <- as.factor(data$x)
 lme.fit <- lmer(data$y~1+1 | pop, REML=TRUE)
-print(lme.fit)
+print(summary(lme.fit))
 print(ranef(lme.fit))
+print(summary(lme.fit)$coeff,dig=3)
+print(paste('AIC', AIC(lme.fit)))
 @
 
 \section{MCMC analysis}
