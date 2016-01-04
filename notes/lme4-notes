@@ -1,0 +1,5 @@
+Lists of examples that use the lme4 package
+
+reaction times were repeatedly measured on the same patients over some number of days
+
+    fm1 <- lmer(Reaction ~ Days + (Days | Subject), sleepstudy)
