@@ -1,0 +1,20 @@
+From
+http://stats.stackexchange.com/questions/4700/what-is-the-difference-between-fixed-effect-random-effect-and-mixed-effect-mode
+
+Fixed effect: Something the experimenter directly manipulates and is
+often repeatable, e.g., drug administration - one group gets drug, one
+group gets placebo.
+
+Random effect: Source of random variation / experimental units e.g.,
+individuals drawn (at random) from a population for a clinical
+trial. Random effects estimates the variability
+
+Mixed effect: Includes both, the fixed effect in these cases are
+estimating the population level coefficients, while the random effects
+can account for individual differences in response to an effect, e.g.,
+each person receives both the drug and placebo on different occasions,
+the fixed effect estimates the effect of drug, the random effects
+terms would allow for each person to respond to the drug differently.
+
+General categories of mixed effects - repeated measures, longitudinal,
+hierarchical, split-plot.

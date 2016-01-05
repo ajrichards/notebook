@@ -1,0 +1,164 @@
+%A minimial Python in LaTeX template
+\documentclass[a4paper]{article}
+\usepackage{amsmath,graphicx,textcomp,hyperref,fullpage}
+\usepackage[section]{placeins}
+\usepackage[utf8]{inputenc}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.50}
+\definecolor{myorange}{cmyk}{0,0.7,1,0}
+\hypersetup{colorlinks=true,linkcolor=darkblue,citecolor=darkblue,urlcolor=darkblue}
+\title{lme4}
+\author{A. Richards}
+
+\begin{document} 
+\maketitle 
+\tableofcontents
+
+\section{About}
+Some of this information and examples are taken directly from links found in the Resources section.  \href{https://cran.r-project.org/web/packages/lme4/index.html}{lme4} is an R package and it stands for \textit{Linear Mixed-Effects Models using 'Eigen' and S4}.  It is perhaps the most commonly used package for linear mixed effect models.  It can be installed with 
+
+\begin{verbatim}
+> install.packages('lme4')
+\end{verbatim}
+
+or under Ubuntu with
+\begin{verbatim}
+$ sudo apt-get install r-cran-lme4
+\end{verbatim}
+
+We consider using linear mixed effects models when
+
+\begin{itemize}
+\item hierarchical structures
+\item nested structures
+\end{itemize}
+
+\subsection{linear models in general}
+The R model interface is quite a simple one with the dependent variable being specified first
+\begin{enumerate}
+\item This is followed by the $\sim$ symbol
+\item The righ hand side are the predictor variables
+\item Addition signs indicate that these are modeled as additive effects
+\end{enumerate}
+
+\section{extrovert example}
+\begin{verbatim}
+$ wget http://www.unt.edu/rss/class/Jon/R_SC/Module9/lmm.data.txt
+\end{verbatim}
+
+%INCLUDE lmm.data.txt
+<<label=imports-snip>>=
+library(lme4)
+library(arm)
+@
+
+<<label=load-data>>=  
+exData <- read.table('lmm.data.txt',header=TRUE,sep=',',na.strings ='NA',dec='.',strip.white=TRUE)
+str(exData)
+@
+
+<<label=extro-boxplots>>=
+pdf('ex-boxplots.pdf',width=8,height=5)
+par(mfrow = c(1,2))
+boxplot(exData$extro ~ exData$class, col='grey', xlab='class', ylab='extro',main='', las=1)
+boxplot(exData$extro ~ exData$school, col='grey', xlab='school', ylab='extro',main='', las=1)
+null <- dev.off()
+@
+
+\noindent Box plots of the data are shown in Figure~\ref{fig:ex-boxplots}.
+\begin{figure}[htb!]
+\begin{center}
+\includegraphics[ext=.pdf,scale = 0.5]{"ex-boxplots"}
+\end{center}
+\label{fig:ex-boxplots}
+\caption{Bar plot to summarize the subject numbers by diagnosis rationale}
+\end{figure}
+
+\noindent First, we fit a non-hierarchical model with ordanary least squares.
+<<label=ols-fit>>=
+OlsFit <- lm(extro ~ open + agree + social, data = exData)
+display(OlsFit)
+@
+
+\noindent Be reminded that R fits an effects parameterization of ANOVA by default so the effects are relative
+to the first covariate instance.  We can also run the same model with a MLE fit and here we show both the effects and means parameterizations.
+
+<<label=mle-fit>>=
+MleFitEp <- glm(extro ~ open + agree + social, data = exData)
+MleFitMp <- glm(extro ~ open + agree + social - 1 , data = exData)
+display(MleFitEp)
+display(MleFitMp)
+print(paste('AIC:',AIC(MleFitEp),sep=' '))
+@
+
+\noindent The previous model specifications ignore the effects of class and school and they amount to the pooling of samples.  We can try to include \texttt{class} and \texttt{school} in a fixed effect model.
+<<label=fixed-effects>>=
+MleFitFe1 <- glm(extro ~ open + agree + social + class - 1, data=exData)
+MleFitFe2 <- glm(extro ~ open + agree + social + school - 1, data=exData)
+display(MleFitFe1)
+print(paste('AIC:',AIC(MleFitFe1),sep=' '))
+print(paste('AIC:',AIC(MleFitFe2),sep=' '))
+@
+
+\noindent The fixed effect model that includes school has a big improvement on model fit.  We can look at the distribution of samples with respect to school and class using
+
+<<label=school-class-table>>=
+table(exData$school, exData$class)
+@
+
+\noindent Next, we try to model with an interaction between class and school, but this specification is hard to interpret.  Then we show two equivalent ways of specifing the interaction effect in a model that lets us tease out the effects of both school and class.
+
+<<label=fixed-effects-interaction>>=
+MleFitFe3 <- glm(extro ~ open + agree + social + school:class -1 , data = exData)
+MleFitFe4 <- glm(extro ~ open + agree + social + school + class + school:class - 1, data = exData)
+MleFitFe5 <- glm(extro ~ open + agree + social + school*class - 1 , data = exData)
+display(MleFitFe5)
+print(paste('AIC school:class:',AIC(MleFitFe3),sep=' '))
+print(paste('AIC school+class+school:class:',AIC(MleFitFe4),sep=' '))
+print(paste('AIC school*class:',AIC(MleFitFe5),sep=' '))
+@
+
+\noindent These approaches are valid, but not necessarly the most appropriate.  If we use the syntax \texttt{(1|school)} it will tell lmer to fit a linear model with a varying-intercept group effect using the variable school. 
+
+<<label=mixed-effects-1>>=
+lmerFit1 <- lmer(extro ~ open + agree + social + (1 | school), data = exData)
+display(lmerFit1)
+print(paste('AIC:',AIC(lmerFit1),sep=' '))
+@
+
+\noindent Or with multiple group effects
+
+<<label=mixed-effects-2>>=
+lmerFit2 <- lmer(extro ~ open + agree + social + (1 | school) + (1 | class), data = exData)
+display(lmerFit2)
+print(paste('AIC:',AIC(lmerFit2),sep=' '))
+@
+
+\noindent Or with nested group effects
+
+<<label=mixed-effects-3>>=
+lmerFit3 <- lmer(extro ~ open + agree + social + (1 | school/class), data = exData)
+display(lmerFit3)
+print(paste('AIC:',AIC(lmerFit3),sep=' '))
+@
+
+\noindent Those models are if we want to use a random effect at the level of intercept.  If we wish to also include a random effect at the level of slope, for say \texttt{open}, we use:
+<<label=mixed-effects-3>>=
+lmerFit4 <- lmer(extro ~ open + agree + social + (1 + open | school/class), data = exData)
+display(lmerFit4)
+print(paste('AIC:',AIC(lmerFit4),sep=' '))
+@
+
+
+\section{Resources}
+\begin{itemize}
+\item{\href{http://www.jstatsoft.org/article/view/v067i01}{Journal of Statistical Software article}}
+\item{\href{http://jaredknowles.com/journal/2013/11/25/getting-started-with-mixed-effect-models-in-r}{Tutorial by Jared by Knowles}}
+\item{\href{http://stats.stackexchange.com/questions/27724/do-all-interactions-terms-need-their-individual-terms-in-regression-model}{interaction question}}
+\end{itemize}
+
+\section{Session}
+<<label=session>>=
+print(sessionInfo(), locale = FALSE)
+@
+
+\end{document}
