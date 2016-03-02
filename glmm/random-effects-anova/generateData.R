@@ -40,6 +40,9 @@ x <- rep(1:npop, rep(nsample, npop))
 X <- as.matrix(model.matrix(~ as.factor(x)-1))
 y <- as.numeric(X %*% as.matrix(popMeans)+resid) 
 
+print(paste('y',y))
+print(paste('x',x))
+
 # Plot of generated data
 pdf("re-svl-data.pdf",height=6,width=6)
 boxplot(y~x, col="grey", xlab="population", ylab="SVL",main="", las=1)
