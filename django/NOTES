@@ -1,0 +1,21 @@
+
+From the tutorial
+https://docs.djangoproject.com/en/1.9/intro/tutorial01/
+
+GETTING STARTED
+
+   ~$ django-admin startproject mysite
+
+this produces
+
+   * The outer mysite/ - root directory is just a container name does not matter
+   * manage.py: A command-line utility that lets you interact with this Django project in various ways.
+   * The inner mysite/ directory is the actual Python package for your project. used for imports e.g. mysite.urls
+   * mysite/__init__.py: An empty file that tells Python that this directory should be considered a Python package
+   * mysite/settings.py: Settings/configuration for this Django project. Django settings will tell you all about how settings work.
+   * mysite/urls.py: The URL declarations for this Django project; a 'table of contents' of your Django-powered site.
+   * mysite/wsgi.py: An entry-point for WSGI-compatible web servers to serve your project.
+
+RUN SERVER
+
+   ~$ python manage.py runserver
