@@ -2,6 +2,11 @@
 From the tutorial
 https://docs.djangoproject.com/en/1.9/intro/tutorial01/
 
+An 'app' is a web application that does something (i.e. weblog, database of public records etc).
+A 'project' is a collection of configuration and apps for a particular website
+a project can contain multiple apps and an app can be in multiple projects
+
+
 GETTING STARTED
 
    ~$ django-admin startproject mysite
@@ -19,3 +24,92 @@ this produces
 RUN SERVER
 
    ~$ python manage.py runserver
+   ~$ python manage.py runserver 8080
+
+
+   * The development server automatically reloads for requests, but adding files requires a restart of the server
+
+
+OVERALL BUILD PROCESS
+
+   (1) Create an app with
+          $ python manage.py startapp news
+   (2) Create some models in 'news/models.py'
+          $ python manage.py migrate
+   (3) Add the model to the 'news/admin.py'
+   (4) Design your URLs 'news/urls.py'
+   (5) Write your views 'mysite/news/views.py'
+   (6) If your view uses a template 
+
+
+Once you have created a model.  It needs to be 'activated'
+
+   i.e. add 'polls.apps.PollsConfig' to INSTALLED_APPS in settings.py followed by
+   $ python manage.py makemigrations polls
+   $ python manage.py migrate
+
+
+
+DATABASE SETUP
+
+   * edit 'mysite/settings.py'
+      - specifically define the 'ENGINE' and 'NAME'
+      - if not SQLlite then all 'USER', 'PASSWORD', and 'HOST'
+      - also set TIME_ZONE to your time zone
+   * python manage.py migrate 
+
+
+DATABASE API
+   $ python manage.py shell
+
+   >>> from polls.models import Question, Choice
+   >>> Question.objects.all() ## or Question.objects.get(pk=1)
+   >>> from django.utils import timezone
+   >>> q = Question(question_text="What's new?", pub_date=timezone.now())
+   >>> q.save()
+   >>> q.id
+   >>> q.question_text
+
+To change a value just change the attribute then q.save()
+
+   >>> Question.objects.filter(id=1)
+   >>> Question.objects.filter(question_text__startswith='What')from django.utils import timezone
+   >>> current_year = timezone.now().year
+   >>> Question.objects.get(pub_date__year=current_year)
+
+   >>> q = Question.objects.get(pk=1)
+   >>> q.choice_set.create(choice_text='Not much', votes=0)
+   >>> q.choice_set.create(choice_text='The sky', votes=0)
+   >>> c = q.choice_set.create(choice_text='Just hacking again', votes=0)
+   >>> c.delete()
+
+
+ADMIN
+
+   $ python manage.py createsuperuser
+   then change the 'polls/admin' file
+
+----------------------------------------------------------------------------------------------------
+PYTHON SANDBOX
+
+   * You cannot just fire up python and interface with models and so on you must use
+
+
+   * then for example you can
+      >>> Reporter.objects.all()
+
+
+
+CREATING AN APP
+
+   python manage.py startapp polls
+
+
+CREATE VIEWS
+
+   Once you have created a view in polls/views.py for example.  You need to map it to a URL and this is done with a URLconf.
+   create in the polls dir a file named urls.py and map possible urls with regexs.  Next we have to point the root URLs
+   to the right place---this is done with another urls.py file.
+
+   the 'include()' function allows referencing other URLconfs.  This lest us put 'polls' where we want i.e. /polls /content/polls
+
