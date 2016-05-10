@@ -1,0 +1,48 @@
+
+Notes from the O'Reilly book
+===============================
+
+About
+^^^^^^^^^^
+
+Adam Jacob created chef in 2009.
+
+Chef is a configureaiton management tool.  Basically a set of engineering practices
+wrt the following when it comes to delivering software applicaitons
+
+   * hardware
+   * software
+   * infrastructure
+   * people
+   * process
+
+Inspired by automation theory developed by Anthony Burgess
+
+   * changes must be handled in a systematic fashion
+   * some form of autonomy in the system to automatically detect and repair faults
+   * other tools  CFEngine, Puppet, Ansible, SaltStack
+
+Reasons why?
+
+   * Consistency -- were all the servers setup the same?
+   * Efficient change management.
+   * Simplicity in rebuild
+   * Visibility
+
+Infrastructure as code
+
+   versionable, repeatable, testable
+
+Setup
+^^^^^^^^^^^^^^^^^^^^^
+
+Install Ruby
+
+   https://gorails.com/setup/ubuntu/15.10
+   install the prereqs
+   git clone https://github.com/rbenv/rbenv.git ~/.rbenv
+
+Install chefDK
+
+got to https://downloads.chef.io/chef-dk/ubuntu/
+   $ sudo dpkg -i chefdk_0.13.21-1_amd64.deb
