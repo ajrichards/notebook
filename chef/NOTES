@@ -45,4 +45,15 @@ Install Ruby
 Install chefDK
 
 got to https://downloads.chef.io/chef-dk/ubuntu/
-   $ sudo dpkg -i chefdk_0.13.21-1_amd64.deb
+
+   $ sudo dpkg -i chefdk_0.13.21-1_amd64.deb                    ## install it
+   $ echo 'eval "$(chef shell-init bash)"' >> ~/.bashrc         ## add /opt/chefdk/embedded to system path
+   Restart terminal
+
+verify the tools are present in
+
+   $ ls /opt/chefdk/bin/
+
+Install test-kitchen
+
+sudo gem install test-kitchen --no-ri --no-rdoc

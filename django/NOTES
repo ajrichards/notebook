@@ -89,6 +89,12 @@ ADMIN
    $ python manage.py createsuperuser
    then change the 'polls/admin' file
 
+
+TESTS
+
+   $ python manage.py test hview
+
+
 ----------------------------------------------------------------------------------------------------
 PYTHON SANDBOX
 
