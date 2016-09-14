@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import sys
 import numpy as np
 
 a = np.arange(10)
@@ -8,8 +9,15 @@ b = np.array([3,4,5])
 mask1 = np.in1d(a,b)
 mask2 = np.in1d(b,a)
 
+
+
 print mask1
+print np.where(mask1==True)
+sys.exit()
+
 print mask2
+
+
 
 mask2Inds = np.where(mask2==True)[0]
 #mask12nds = map(lambda x: 1 if x else 0, mask1)
