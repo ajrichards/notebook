@@ -69,3 +69,4 @@ nosetests.xml
 */*/_sphinx/*
 */*/*/_latex/*
 */*/*/_sphinx/*
+.ipynb_checkpoints

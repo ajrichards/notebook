@@ -29,8 +29,8 @@ class TwoComponentGaussian():
         n    = len(self.y) 
         mu1  = y[np.random.randint(0,n)]
         mu2  = y[np.random.randint(0,n)]
-        sig1 = np.random.uniform(0.5,1.5) #y.var() or 0.5,3.0 
-        sig2 = np.random.uniform(0.5,1.5) #y.var() or 0.5,3.0
+        sig1 = np.random.uniform(0.5,1.5) 
+        sig2 = np.random.uniform(0.5,1.5) 
         pi   = 0.5
     
         return {'n':n, 'mu1':mu1, 'mu2':mu2, 'sig1':sig1, 'sig2':sig2, 'pi':pi}
@@ -127,8 +127,7 @@ class TwoComponentGaussian():
             if log_like > max_like:
                 max_like = log_like
                 best_estimates = parms.copy()
-
-                
+            
             if self.verbose == True:
                 print 'run:',j+1, '--- mu1: ',round(parms['mu1'],2),'--- mu2:',round(parms['mu2'],2),
                 print '--- obs.data likelihood: ', round(log_like,4)
