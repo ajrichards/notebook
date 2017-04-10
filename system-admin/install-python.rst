@@ -7,8 +7,8 @@ INSTALLING PYTHON
 
 If there is an old version of anaconda you can remove it with
 
-   ~$ rm -rf ~/anaconda3
-
+   ~$ rm -rf ~/anaconda*
+   
 Download the image or install script from https://www.continuum.io/downloads
 
 
@@ -48,3 +48,17 @@ To activate the python 2 environment
 To toggle back to a Python3 environment
 
    ~$ source deactivate py2
+
+Then ensure you can run Jupyter with Py2
+------------------------------------------
+
+   ~$ source activate py2
+   ~$ conda install notebook ipykernel
+   ~$ ipython kernel install --user
+
+   
+Keeping conda up-to-date
+------------------------------
+
+   ~$ conda update conda
+   ~$ conda update anaconda
