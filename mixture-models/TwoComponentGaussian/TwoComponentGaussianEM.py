@@ -119,8 +119,8 @@ class TwoComponentGaussianEM():
                 bestEstimates = parms.copy()
 
             if self.verbose == True:
-                print 'runNum: ',j + 1,'mu1: ',round(parms['mu1'],2),'mu2: ',round(parms['mu2'],2),'sig1: ',round(parms['sig1'],2),
-                print 'sig2: ',round(parms['sig2'],2),'pi: ',round(parms['pi'],2),'obs.data likelihood: ', round(logLike,4)
+                print('runNum: ',j + 1,'mu1: ',round(parms['mu1'],2),'mu2: ',round(parms['mu2'],2),'sig1: ',round(parms['sig1'],2),)
+                print('sig2: ',round(parms['sig2'],2),'pi: ',round(parms['pi'],2),'obs.data likelihood: ', round(logLike,4))
 
         return maxLike, bestEstimates
  
@@ -136,8 +136,8 @@ if __name__ == '__main__':
     makePlots = True
     tcg = TwoComponentGaussianEM(y, numIters, numRuns,verbose=verbose)
 
-    print 'maxLike', tcg.maxLike
-    print 'bestEstimates', tcg.bestEst
+    print('maxLike', tcg.maxLike)
+    print('bestEstimates', tcg.bestEst)
 
     if makePlots == True:
         n, bins, patches = plt.hist(y,15,normed=1,facecolor='gray',alpha=0.75)
