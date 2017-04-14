@@ -15,4 +15,4 @@ import scipy.stats as stats
 
 Two sided p-value if Z > 0 2 * (1-Phi(Z)) else 2 * (Phi(Z))
 One sided p-value if Z > 0 (1-Phi(Z)) else (Phi(Z))
-Phi is the standard notation for the inverse CDF
+Phi is the standard notation for the CDF
