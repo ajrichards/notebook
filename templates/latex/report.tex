@@ -1,0 +1,110 @@
+%A minimial Python in LaTeX template
+\documentclass[a4paper]{article}
+
+\usepackage{listings,color,xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{titlesec}
+\usepackage{amsmath,graphicx,textcomp,hyperref,fullpage}
+\usepackage[section]{placeins}
+
+\definecolor{shadecolor}{rgb}{.9, .9, .9}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.5}
+\definecolor{myorange}{cmyk}{0,0.7,1,0}
+\definecolor{mypurple}{cmyk}{0.3, 0.9, 0.0, 0.2}
+\hypersetup{colorlinks=true,linkcolor=darkblue,citecolor=darkblue,
+urlcolor=darkblue}
+\newcommand{\keywd}{\textcolor{myorange}}
+
+\newcommand{\argmin}{\operatornamewithlimits{argmin}}
+
+\lstnewenvironment{code}{
+    \lstset{backgroundcolor=\color{shadecolor},
+        showstringspaces=false,
+        language=python,
+        frame=single,
+        framerule=0pt,
+        keepspaces=true,
+        breaklines=true,
+        basicstyle=\ttfamily,
+        keywordstyle=\bfseries,
+        basicstyle=\ttfamily\scriptsize,
+        keywordstyle=\color{blue}\ttfamily,
+        stringstyle=\color{red}\ttfamily,
+        commentstyle=\color{green}\ttfamily,
+        columns=fullflexible
+    }
+}{}
+
+\lstnewenvironment{codeout}{
+    \lstset{backgroundcolor=\color{shadecolor},
+        frame=single,
+        framerule=0pt,
+        breaklines=true,
+        basicstyle=\ttfamily\scriptsize,
+        columns=fullflexible
+    }
+}{}
+
+%% title page           
+\title{Instructor retention}
+\author{Adam Richards \\ \ \\ \includegraphics[scale=0.075]{hobbes.jpg}}
+\date{\today}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle 
+\tableofcontents
+\newpage 
+
+\section{About}
+
+Some report \keywd{content}
+
+
+\section{In the short-term}
+\subsection{Game of thrones series}
+
+stuff stuff
+
+\begin{table}[!h]
+	\begin{center}
+	\begin{tabular}{l|l|c|c|c|c}
+	\hline
+Date     & Topics                   & Lead    & On-Deck & On-dev & Nightclass\\
+Monday   & Gradient Decent          & Adam    & Steve   & Frank  & -         \\
+Tuesday  & Decision Trees and kNN   & Frank   & Steve   & Adam   & Brent/Sue \\
+Wednesday& Bagging, Random Forests  & Sue     & Brent   & -      & -         \\
+Thursday & SVMs and Kernels         & Adam    & Frank   & -      & Steve/Sue \\
+Friday   & Regression Case Study    & Frank   & Brent   & Sue    & -         \\ 
+        \hline
+\end{tabular}
+\end{center}
+\end{table}
+
+
+\begin{code}
+
+  import numpy as np
+  import matplotlib.pyplot as plt
+  x = np.random.random(0,1,100)
+  fig = plt.figure()
+  ax = fig.add_subplot(111)
+  ax.hist(x)
+  plt.savefig('my-hist.png')
+
+\end{code}
+
+
+%\begin{figure}[!h]
+%  \begin{center}
+%    \includegraphics[scale=0.5]{pt-dsr-staffing.png}
+%  \end{center}
+%  \label{fig:dsr}
+%  \caption{Cost associated with adding a part-time DSR on the Denver campus.}
+%\end{figure}
+
+
+\section{In the long-term}
+\subsection{Game of thrones books}
+\end{document}
+
