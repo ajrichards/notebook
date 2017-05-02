@@ -2,13 +2,10 @@
 """
 populate the mongodb database
 
- * 'documents' are stored in collections
+ * documents are stored in collections
  * collections are analogous to tables in relational databases
  * collection does not require its documents to have the same schema
  * lets define a document as an interaction with subject or subject data
-
-sudo apt-get install mongodb
-sudo pip install pymongo
 
 """
 
@@ -18,20 +15,26 @@ import numpy as np
 
 ## connect or create db if it does not exist
 client = MongoClient()
-db = client['my-bcplatform']
-knownFields = set([])
-collection = db['familial']
-collection = db['sporadic']
 
+
+
+
+
+#db = client['my-bcplatform']
+#knownFields = set([])
+#collection = db['familial']
+#collection = db['sporadic']
+
+
+
+
+"""
 ## clean the database
 db['familial'].remove({})
 db['sporadic'].remove({})
 
 ## data munge functions
 def read_data(filePath,splitDx=False):
-    """
-    read csv file
-    """
 
     ## error check the file header
     fid = open(filePath,'rU')
@@ -239,3 +242,4 @@ for document in cursor:
 cursor = db.restaurants.find({"grades.grade": "B"})
 
 print 'done'
+"""
