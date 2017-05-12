@@ -61,4 +61,4 @@ Keeping conda up-to-date
 ------------------------------
 
    ~$ conda update conda
-   ~$ conda update anaconda
+   ~$ conda updata --all
