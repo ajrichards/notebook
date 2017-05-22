@@ -13,6 +13,12 @@ General setup
   * ~$ git config --global core.editor emacs
   * ~$ git config --global merge.tool meld
 
+You can also config a specific repo.  cd into the root then use:
+
+  * git config user.name "Adam Richards"
+  * git config user.email "frodob@gmail.conm"
+
+    
 How to get ssh working
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
