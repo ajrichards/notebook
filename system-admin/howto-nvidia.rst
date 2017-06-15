@@ -44,5 +44,8 @@ test it
    ~$ sudo make
    ~$ ./marchingCubes
 
-   
 
+Ensure that theano works
+-------------------------
+
+http://deeplearning.net/software/theano/tutorial/using_gpu.html
