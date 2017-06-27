@@ -1,0 +1,53 @@
+%A minimial Python in LaTeX template
+\documentclass[a4paper]{article}
+
+\usepackage{listings,color,xcolor}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath,graphicx,textcomp,hyperref,fullpage}
+\usepackage[section]{placeins}
+
+\definecolor{shadecolor}{rgb}{.9, .9, .9}
+\lstnewenvironment{code}{
+\lstset{backgroundcolor=\color{shadecolor},
+showstringspaces=false,
+language=python,
+frame=single,
+framerule=0pt,
+keepspaces=true,
+breaklines=true,
+basicstyle=\ttfamily\scriptsize,
+keywordstyle=\color{blue}\ttfamily,
+stringstyle=\color{red}\ttfamily,
+commentstyle=\color{green}\ttfamily,
+columns=fullflexible}}{}
+\lstnewenvironment{codeout}{
+\lstset{backgroundcolor=\color{shadecolor},
+frame=single,
+framerule=0pt,
+breaklines=true,
+basicstyle=\ttfamily\scriptsize,
+columns=fullflexible}}{}
+           
+%% coloring           
+\definecolor{darkblue}{rgb}{0.0,0.0,0.50}
+\definecolor{myorange}{cmyk}{0,0.7,1,0}
+\hypersetup{colorlinks=true,linkcolor=darkblue,citecolor=darkblue,
+urlcolor=darkblue}
+\title{Big Oh}
+\author{Adam Richards}
+\date{\today}
+
+\setlength{\textfloatsep}{10pt plus 1.0pt minus 2.0pt}
+\setlength{\floatsep}{5pt plus 1.0pt minus 2.0pt}
+\setlength{\intextsep}{5pt plus 1.0pt minus 2.0pt}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{document}
+\maketitle 
+\tableofcontents
+\newpage 
+
+woot
+
+\end{document}
+
