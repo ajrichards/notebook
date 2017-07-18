@@ -1,6 +1,7 @@
 install ubuntu alongisde osx
 
 
+
 boot into osx and paritition the disk
 ----------------------------------------
 
@@ -35,3 +36,11 @@ troubleshooting
    * sometimes when a new version of osx is installed you will need to repeat this process
 
 
+palm detection
+^^^^^^^^^^^^^^^^^^^
+
+you can change the sensitivity of what is considered a touch with
+
+   $ synclient PalmMinZ=100
+
+   
