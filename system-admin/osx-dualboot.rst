@@ -44,3 +44,7 @@ you can change the sensitivity of what is considered a touch with
    $ synclient PalmMinZ=100
 
    
+funny key mapping
+^^^^^^^^^^^^^^^^^^^^
+
+https://askubuntu.com/questions/530325/tilde-key-on-mac-air-with-ubuntu
