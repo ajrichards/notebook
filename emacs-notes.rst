@@ -16,3 +16,8 @@ Block comment
 --------------
 
 highlight a region then use M-;
+
+Markdown files
+-----------------
+
+sudo apt-get install elpa-markdown-mode

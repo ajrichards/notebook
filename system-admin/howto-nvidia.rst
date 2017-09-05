@@ -19,12 +19,18 @@ Download cuda
    
       ~$  wget https://developer.nvidia.com/compute/cuda/8.0/Prod2/local_installers/cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
 
-   The finish install
+   Then finish main install
 
       ~$ sudo dpkg -i cuda-repo-ubuntu1604-8-0-local-ga2_8.0.61-1_amd64-deb
       ~$ sudo apt-get update
       ~$ sudo apt-get install cuda
 
+
+   Install the available patch
+
+   
+
+      
 Add the following to your .bashrc
       
    export PATH="/usr/local/cuda/bin:$PATH"
@@ -33,6 +39,12 @@ Add the following to your .bashrc
 
 restart terminal
 
+
+GCC fix
+-------------------
+
+~$ sudo apt-get install gcc-5 g++-5
+~$ sudo ln -s /usr/bin/gcc-5 /usr/local/cuda/bin/gcc
 
 test it
 
@@ -45,6 +57,12 @@ test it
    ~$ ./marchingCubes
 
 
+Pycuda
+-------------
+
+   ~$ pip install pycuda
+
+   
 Ensure that theano works
 -------------------------
 
