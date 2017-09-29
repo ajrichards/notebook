@@ -40,7 +40,6 @@ Then run this to create a working python 2 environment
    ~$ conda create -n py2 python=2 anaconda
 
 
-
 To activate the python 2 environment
 
    ~$ source activate py2
