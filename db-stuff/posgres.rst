@@ -8,6 +8,7 @@ these notes are Ubuntu specific
 
 create a user
 --------------------------
+
 sudo su - postgres
 psql -U postgres
 CREATE USER ender WITH ENCRYPTED PASSWORD 'bugger';
@@ -15,10 +16,19 @@ CREATE USER ender WITH ENCRYPTED PASSWORD 'bugger';
 
 create a database
 ----------------------
+
 sudo su - postgres
 psql -U postgres
 CREATE DATABASE readychef WITH OWNER ender;
 \q
+
+connect to it to make sure it works
+-------------------------------------
+
+sudo su - postgres
+psql -U ender -d logins
+
+
 
 populate a database from a dump
 ------------------------------------

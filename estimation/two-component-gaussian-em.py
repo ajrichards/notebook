@@ -129,8 +129,8 @@ class TwoComponentGaussian():
                 best_estimates = parms.copy()
             
             if self.verbose == True:
-                print 'run:',j+1, '--- mu1: ',round(parms['mu1'],2),'--- mu2:',round(parms['mu2'],2),
-                print '--- obs.data likelihood: ', round(log_like,4)
+                print('run:',j+1, '--- mu1: ',round(parms['mu1'],2),'--- mu2:',round(parms['mu2'],2),)
+                print('--- obs.data likelihood: ', round(log_like,4))
                 
         print("runs complete")
 
@@ -149,8 +149,8 @@ if __name__ == '__main__':
     make_plots = True
     tcg = TwoComponentGaussian(y, num_iters, num_runs,verbose=verbose)
 
-    print 'max likelihood', tcg.max_like
-    print 'best estimates', tcg.best_est
+    print('max likelihood', tcg.max_like)
+    print('best estimates', tcg.best_est)
 
     if make_plots:
         fig = plt.figure(figsize=(10,8))
