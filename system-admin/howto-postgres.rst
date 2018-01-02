@@ -8,8 +8,10 @@ From a terminal
 
    $ sudo apt-get install postgresql
 
-Postgres has a superuser buildin called 'postgres' that we perfom admin tasks with
+Postgres has a superuser built-in called 'postgres' that we perfom admin tasks with
+
 This is how you become the user postgres
+--------------------------------------------
 
    $ sudo su - postgres
    $ psql -U postgres
@@ -18,16 +20,13 @@ Create a postgres user
 --------------------------
 
    1. Become the super user 'postgres'
-   2.
 
       $ CREATE USER ender WITH ENCRYPTED PASSWORD 'bugger';
-      $  
       
 Create a empty database
 ----------------------------
 
    1. Become the super user 'postgres'
-   2.
 
       * $ CREATE DATABASE ansible;
       * [optionally] populate db (see below)
