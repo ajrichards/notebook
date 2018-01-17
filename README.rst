@@ -20,3 +20,9 @@ are frequently used throughout.
    * `PyMC <https://pymc-devs.github.io/pymc>`_
    * `JAGS <http://mcmc-jags.sourceforge.net>`_
 
+
+Valuable web resources
+-------------------------
+
+   * https://www.analytics-link.com/
+   * https://www.kdnuggets.com/  
