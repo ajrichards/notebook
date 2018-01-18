@@ -71,3 +71,5 @@ nosetests.xml
 */*/*/_latex/*
 */*/*/_sphinx/*
 .ipynb_checkpoints
+
+visualization/imgs/*

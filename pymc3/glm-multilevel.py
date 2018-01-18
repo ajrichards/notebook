@@ -39,8 +39,6 @@ print
 fig = plt.figure(figsize=(8,6))
 ax = fig.add_subplot(111)
 
-
-
 ## run unpooled model
 
 

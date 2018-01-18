@@ -6,7 +6,14 @@ basic driver install
    ~$ sudo add-apt-repository ppa:graphics-drivers/ppa
    ~$ sudo apt-get update
    ~$ sudo apt-get install nvidia-387
+   ~$ sudo apt-get install nvidia-modprobe
+   
+Reboot and check to see if the install worked
+   
+   ~$ lsmod | grep nvidia 
 
+Also you should be able to run `nvidia-settings`
+   
 basic cuda install
 --------------------
 
