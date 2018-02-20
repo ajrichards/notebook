@@ -49,6 +49,19 @@ Helpful command
 * look at diff for a file and two commits back
   ~$ git diff HEAD^^..HEAD my_file.rst
 
+How to merge from upstream
+-----------------------------
+
+* make sure you are in the right branch on your forked repo
+  for example: https://github.com/ajrichards/ds-week-0.git
+  
+  ~$ git checkout master
+  ~$ git pull https://github.com/gSchool/ds-week-0.git master
+
+  Resolve any merge conflicts
+  
+  ~$ git commit -a -m 'merged from upstream'
+  ~$ git push origin master
 
 Branches
 ---------------
