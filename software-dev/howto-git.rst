@@ -63,6 +63,22 @@ How to merge from upstream
   ~$ git commit -a -m 'merged from upstream'
   ~$ git push origin master
 
+How to resolve merge conflits
+-------------------------------
+
+You can use
+
+~$ git checkout --theirs /path/to/file
+or 
+~$ git checkout --ours /path/to/file
+
+Then you need to add it and commit
+
+~$ git add /path/to/file
+~$ git commit -m 'fixed merge'
+~$ git push
+
+  
 Branches
 ---------------
   
