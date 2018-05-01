@@ -42,10 +42,12 @@ user account that sandboxed from accessing billing information.
 3. customize your signin link e.g.
 
    https://frodob.signin.aws.amazon.com/console 
+
 4. create a new user:
    * click on *Users*
    * Create a user name and select Programmatic access and AWS Management Console access
    * create a password for this user
+
 5. create a group with role "AdministrationAccess" -- call it say 'vanilla'
 6. setup security
    * [optional] For extra security you can enable multi-factor auth
