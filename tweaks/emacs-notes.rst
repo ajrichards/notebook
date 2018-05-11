@@ -21,3 +21,10 @@ Markdown files
 -----------------
 
 sudo apt-get install elpa-markdown-mode
+
+Terminal
+--------------
+
+Run a command at bottom
+M-x term
+
