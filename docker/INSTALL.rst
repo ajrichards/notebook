@@ -1,6 +1,11 @@
 install
 ----------
 
+If you do not care about the latest version
+
+   ~$ sudo apt install docker.io
+
+
 https://docs.docker.com/engine/installation/linux/ubuntulinux/
 
 add the following to /etc/apt/sources.list
@@ -12,21 +17,4 @@ add the following to /etc/apt/sources.list
    ~$ sudo apt-get update
    ~$ sudo apt-get install docker-engine
 
-common cmds
--------------
 
-start it
-   ~$ sudo service docker start
-
-test it
-   ~$ sudo docker run hello-world
-
-check that it running
-   ~$ sudo systemctl status docker
-
-
-~$ docker ps
-
-
-## managing the containers (not chef etc)
-swarm, mesos-marathon
