@@ -23,7 +23,6 @@ x = np.hstack([x1,x2,x3])
 print("\nx (%s observations, %s features)"%(x.shape[0],x.shape[1]))
 print(x)
 
-distance_metric = 'euclidean'
 _m = pdist(x,distance_metric)
 m = squareform(_m)
 

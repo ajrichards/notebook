@@ -25,6 +25,9 @@ sudo apt-get install elpa-markdown-mode
 Terminal
 --------------
 
+open a terminal
+M-x ansi-term
+
 Run a command at bottom
 M-x term
 

@@ -22,9 +22,13 @@ Start it
 sudo systemctl start elasticsearch
 
 """
-
+import pprint
+import os,json
 from datetime import datetime
 from elasticsearch import Elasticsearch
+
+pp = pprint.PrettyPrinter(indent=4)
+
 es = Elasticsearch()
 
 doc = {
@@ -40,7 +44,21 @@ print(res['_source'])
 
 es.indices.refresh(index="test-index")
 
-res = es.search(index="test-index", body={"query": {"match_all": {}}})
-print("Got %d Hits:" % res['hits']['total'])
-for hit in res['hits']['hits']:
-    print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
+result = es.search(index="test-index", body={"query": {"match_all": {}}})
+#print("Got %d Hits:" % res['hits']['total'])
+#for hit in res['hits']['hits']:
+#    print("%(timestamp)s %(author)s: %(text)s" % hit["_source"])
+
+## show how to save the query to disk                                                                                        
+json_file = "query.json"
+json_filepath = os.path.join(".",json_file)
+fh = open(json_filepath,'w')
+json.dump(result,fh)
+fh.close()
+
+## show how to read back in the json
+with open(json_filepath) as f:                                                                                                       
+    data = json.load(f) 
+
+pp.pprint(data)
+    
