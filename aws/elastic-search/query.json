@@ -1,0 +1,1 @@
+{"took": 1, "timed_out": false, "_shards": {"total": 5, "successful": 5, "skipped": 0, "failed": 0}, "hits": {"total": 1, "max_score": 1.0, "hits": [{"_index": "test-index", "_type": "tweet", "_id": "1", "_score": 1.0, "_source": {"author": "kimchy", "text": "Elasticsearch: cool. bonsai cool.", "timestamp": "2018-06-06T19:43:33.181205"}}]}}
