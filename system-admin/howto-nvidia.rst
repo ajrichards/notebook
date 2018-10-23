@@ -62,12 +62,16 @@ test it
 tensorflow
 --------------
 
-sudo apt-get install cuda-command-line-tools
+sudo apt-get install cuda-command-line-tools-9.0
 
 ## add the following to your .bashrc
 export LD_LIBRARY_PATH=${LD_LIBRARY_PATH:+${LD_LIBRARY_PATH}:}/usr/local/cuda/extras/CUPTI/lib64
 
-pip install --upgrade tensorflow-gpu
+~$ sudo apt-get install libcupti9.1
+
+install cuDNN (download and dpkg -i)
+
+~$ pip install --upgrade tensorflow-gpu
 
 
 
