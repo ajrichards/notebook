@@ -11,17 +11,3 @@ mask2 = np.in1d(b,a)
 print('mask1',mask1)
 print('mask2',mask2)
 
-
-#print mask1
-#print np.where(mask1==True)
-sys.exit()
-
-
-
-
-
-mask2Inds = np.where(mask2==True)[0]
-#mask12nds = map(lambda x: 1 if x else 0, mask1)
-#print mask2Inds
-#print b[mask2]
-#print b[mask2Inds]
