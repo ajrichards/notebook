@@ -55,3 +55,25 @@ if my_birthday < today:
 else:
     print("birthday still to come ({} days from now)".format((my_birthday-today).days))
 
+## get last Monday
+
+def get_last_monday():
+    today = datetime.now()
+
+    for days_ago in range(7):
+        day = today - timedelta(days=days_ago)
+              
+        if day.strftime("%A") == 'Monday':
+            return(day)
+
+print(today.strftime("%A"))
+last_monday = get_last_monday()
+print(last_monday)
+#>>> today
+##datetime.date(2013, 8, 13)
+#>>> idx = (today.weekday() + 1) % 7 # MON = 0, SUN = 6 -> SUN = 0 .. SAT = 6
+#>>> idx
+#2
+#>>> sun = today - datetime.timedelta(7+idx)
+#>>> sat = today - datetime.timedelta(7+idx-6)
+    
