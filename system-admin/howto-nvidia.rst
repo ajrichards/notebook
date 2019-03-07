@@ -13,6 +13,12 @@ Reboot and check to see if the install worked
    ~$ lsmod | grep nvidia 
 
 Also you should be able to run `nvidia-settings`
+
+On ubuntu 18.10 you may need to
+
+   ~$ emacs /etc/gdm3/custom.conf 
+
+and uncomment the line 'waylandEnable=False' line (this forces an xorg login screen)
    
 basic cuda install
 --------------------
