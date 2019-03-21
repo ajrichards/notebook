@@ -4,19 +4,15 @@ Install
 
 https://github.com/NVIDIA/nvidia-docker
 
+## ensure that the 18.04 version of docker is installed even if you are on 18.10
 
-## If you have nvidia-docker 1.0 installed: we need to remove it and all existing GPU containers
+   ~$ sudo apt purge docker*
+   ~$ sudo apt install docker-ce=5:18.09.1~3-0~ubuntu-bionic
 
-   ~$ docker volume ls -q -f driver=nvidia-docker | xargs -r -I{} -n1 docker ps -q -a -f volume={} | xargs -r docker rm -f
-   ~$ sudo apt-get purge -y nvidia-docker
-
-## Add the package repositories
    ~$ curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | \
       sudo apt-key add -
-      distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
-
-   ~$ curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | \
-  sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+   ~$ curl -s -L https://nvidia.github.io/nvidia-docker/ubuntu18.04/nvidia-docker.list | \
+      sudo tee /etc/apt/sources.list.d/nvidia-docker.list
 
 ## Install nvidia-docker2 and reload the Docker daemon configuration
 

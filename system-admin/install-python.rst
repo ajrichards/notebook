@@ -2,8 +2,8 @@
 NOTE: these install instructions will install a Python3 default environment with a Python2 backup.
 
 
-INSTALLING PYTHON
---------------------
+INSTALLING PYTHON USING CONDA
+---------------------------------
 
 If there is an old version of anaconda you can remove it with
 
@@ -61,3 +61,15 @@ Keeping conda up-to-date
 
    ~$ conda update conda
    ~$ conda updata --all
+
+
+
+INSTALLING PYTHON WITHOUT CONDA
+------------------------------------
+
+
+   ~$ sudo apt-get install build-essential python3 ipython3 python3-dev python3-pip
+   ~$ pip3 install scipy spacy matplotlib pandas
+   ~$ 
+
+

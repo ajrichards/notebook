@@ -2,6 +2,7 @@ install
 ----------
 
 https://docs.docker.com/engine/installation/linux/ubuntulinux/
+https://docs.docker.com/install/linux/docker-ce/ubuntu/
 
 If you do not care about the latest version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -13,10 +14,15 @@ Otherwise install from docker repo
 
 First ensure apt working over https
 
-   ~$ sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
+   ~$ sudo apt-get install \
+      apt-transport-https \
+      ca-certificates \
+      curl \
+      gnupg-agent \
+      software-properties-common 
 
-Add the key
-
+Add the GPG key
+     
    ~$ curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
 
 Verify the key has the following fingerprint 9DC8 5822 9FC7 DD38 854A E2D8 8D81 803C 0EBF CD88
