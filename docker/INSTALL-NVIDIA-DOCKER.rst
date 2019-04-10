@@ -30,6 +30,8 @@ https://github.com/NVIDIA/nvidia-docker
 
 ## or open a bash session in the container
 
-   ~$ sudo docker run --runtime=nvidia -it tensorflow/tensorflow:latest-gpu bash
+   ~$ sudo docker run -u $(id -u):$(id -g) -v ~/repos/notebook:/home/notebook --runtime=nvidia -it tensorflow/tensorflow:latest-gpu-py3 bash
 
+Then cd into /home/notebook and
 
+   ~$ python test-tensorflow-gpu.py 
