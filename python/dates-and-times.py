@@ -67,6 +67,6 @@ def get_last_monday():
 
 print(today.strftime("%A"))
 last_monday = get_last_monday()
-print(last_monday)
+print("last monday",last_monday.strftime("%x"))
 
     
