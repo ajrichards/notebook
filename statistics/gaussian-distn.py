@@ -15,7 +15,7 @@ n = 10000
 fig = plt.figure(figsize=(10,6))
 splot = 0
 
-## loop through parameterizations of the beta
+## loop through parameterizations of the normal
 for mu,sig in [(1,5),(0.0,1.0),(5,2)]:
     splot += 1
     ax = fig.add_subplot(1,3,splot)

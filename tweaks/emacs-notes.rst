@@ -31,3 +31,8 @@ M-x ansi-term
 Run a command at bottom
 M-x term
 
+font size
+---------------
+
+C-x + C-+ (bigger)
+C-x + C-- (smaller)
