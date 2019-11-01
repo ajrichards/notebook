@@ -37,41 +37,29 @@ https://www.anaconda.com/distribution/
     ~$ rm -rf ~/anaconda3
 
 
-sudo apt-get update
-sudo apt-get -y install build-essential
-sudo apt-get -y install python3 python3-pip
-sudo apt-get -y install python3-dev
-sudo apt-get install python ipython jupyter
-sudo apt-get install python3-scipy python3-numpy python3-pandas python3-matplotlib python3-seaborn
+sudo apt update
+sudo apt -y install build-essential
+sudo apt -y install python3 python3-pip
+sudo apt -y install python3-dev
+sudo apt -y install jupyter-core
+sudo apt -y install jupyter-notebook
 
-sudo chown adam:adam -R /usr/share/jupyter
-
-pip install -U setuptools
-pip install -U sphinx
-pip install -U sphinxcontrib-bibtex
-pip install -U sphinx-rtd-theme
-pip install -U nbsphinx
-pip install RISE
-
-jupyter-nbextension install rise --py --sys-prefix
-jupyter-nbextension enable rise --py --sys-prefix
-pip install jupyter_contrib_nbextensions
-jupyter contrib nbextension install --user
-jupyter nbextension enable spellchecker/main
-jupyter notebook
+pip install -U -r requirements.txt
 
 
-# install requirements first
-RUN pip3 install --upgrade pip
-RUN 
-COPY ./requirements.txt /code/requirements.txt
-RUN pip3 install -r /code/requirements.txt
+## NEXT TIME MIGHT WANT TO CONSIDER jupyter from pip
+for some reason it went here ~/.local/bin/jupyter-nbextension 
+
+## configureing jupyter
+
+~$ pip install jupyter_contrib_nbextensions && jupyter contrib nbextension install 
+~$ pip install jupyter_contrib_nbextensions
+~$ jupyter contrib nbextension install --user
+
+~$ pip install -U RISE
+~$ jupyter-nbextension install rise --py --sys-prefix
+~$ jupyter-nbextension enable rise --py --sys-prefix
+~$ jupyter nbextension enable spellchecker/main
 
 
-    
-update and install the essentials
 
-.. code-block:: bash
-
-    ~$ conda update --all
-    ~$ conda install sphinx

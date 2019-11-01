@@ -7,6 +7,7 @@ import matplotlib.pyplot as plt
 from matplotlib import cm
 import numpy as np
 
+
 x = np.random.randint(1000, size=50)
 y = np.random.randint(1000, size=50)
 n = x.size
@@ -27,7 +28,7 @@ ax1.set_aspect('equal')
 ax1.set_title("Using a list of colors")
 
 ## plot with a cmap
-s = ax2.scatter(x,y,s=50,c=colors,cmap='inferno')
+s = ax2.scatter(x,y,s=50,c=colors,qcmap='inferno')
 ax2.set_aspect('equal')
 ax2.set_title("Using a cmap")
 

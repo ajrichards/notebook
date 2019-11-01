@@ -29,7 +29,7 @@ fig = plt.figure(figsize=(10,6))
 splot = 0
 
 ## loop through parameterizations of the beta
-for a,b in [(5,1),(5,2),(5,5)]:
+for a,b in [(4,8),(5,2),(5,5)]:
     splot += 1
     ax = fig.add_subplot(1,3,splot)
     
