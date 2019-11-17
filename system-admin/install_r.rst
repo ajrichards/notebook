@@ -1,4 +1,7 @@
 
+Ubuntu
+---------
+
 
 Add the key to your keyserver then add the source
 
@@ -10,3 +13,9 @@ Install R
    
    ~$ sudo apt-get install r-base
 
+
+OSX
+-----
+
+~$ brew tap caskroom/cask
+~$ brew install caskroom/cask/xquartz
