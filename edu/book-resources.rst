@@ -36,8 +36,13 @@ NLP
 Algorithms and CS
 ---------------------
   
-* `Stephen Boyd and Lieven Vandenberghe Convex Optimization  <http://stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf>`_
+* `Stephen Boyd and Lieven Vandenberghe. Convex Optimization  <http://stanford.edu/~boyd/cvxbook/bv_cvxbook.pdf>`_
 * `J. Vlissides, R. Johnson, R. Helm, E. Gamma. Design Patterns Elements of Reusable Object-oriented Software <https://www.oreilly.com/library/view/design-patterns-elements/0201633612/>`_
+
+Getting started with math and stats
+------------------------------------
+
+* `Marc Peter Deisenroth, A Aldo Faisal, and Cheng Soon Ong. Mathematics for Machine Learning <https://mml-book.github.io/book/mml-book.pdf>`_
   
 Getting started with programming
 ----------------------------------
