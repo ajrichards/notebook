@@ -8,8 +8,8 @@ The hard way
    or edit your .emacs
    (add-to-list 'auto-mode-alist '("\\.nw\\'" . latex-mode))
 
-The easy way
-   Use the GUI and install auctex
+   The easy way
+       Use the GUI and install auctex
 
 
 Block comment
