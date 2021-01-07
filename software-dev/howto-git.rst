@@ -12,7 +12,8 @@ General setup
   * ~$ git config --global user.email 'frodob@gmail.com'
   * ~$ git config --global core.editor emacs
   * ~$ git config --global merge.tool meld
-
+  * ~$ git config --global pull.ff only
+    
 You can also config a specific repo.  cd into the root then use:
 
   * git config user.name "Adam Richards"
