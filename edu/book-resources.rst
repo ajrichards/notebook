@@ -43,7 +43,8 @@ Getting started with math and stats
 ------------------------------------
 
 * `Marc Peter Deisenroth, A Aldo Faisal, and Cheng Soon Ong. Mathematics for Machine Learning <https://mml-book.github.io/book/mml-book.pdf>`_
-  
+* `KDnuggets compilation of free resources <https://www.kdnuggets.com/2020/02/free-mathematics-courses-data-science-machine-learning.html>`_
+
 Getting started with programming
 ----------------------------------
  
