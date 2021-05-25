@@ -81,7 +81,6 @@ As an aside you can create multiple profiles via
 		
    ~$ aws configure --profile fancy_profile
 
-
 Test it
 ^^^^^^^^^^^
 
@@ -100,16 +99,17 @@ Setup ssh keys
 
 Generate a public and private key pair
 
-  * ~$ ssh-keygen -t rsa -C "kelsus-aws" -f ~/.ssh/id_aws
+  * ~$ ssh-keygen -t rsa -C "SOMENAME" -f ~/.ssh/id_aws
   * ~$ mv ~/.ssh/id_aws ~/.ssh/id_aws.pem
-  * ~$ sudo chmod 600 ~/.ssh/id_aws
+  * ~$ sudo chmod 600 ~/.ssh/id_aws.pem
   * ~$ ssh-add ~/.ssh/id_aws.pem
 
-    
-  * ~$ xclip -sel clip < ~/.ssh/id_aws.pub
-  * ~$ got to [[https://github.com/settings/ssh]] and click on 'add key' and paste it in
-
 From the IAM manager click on "upload SSH public access key"
+
+There are other ways to create key pairs.
+
+* https://docs.aws.amazon.com/cli/latest/userguide/cli-ec2-keypairs.html
+
 
 Test it
 ^^^^^^^^^

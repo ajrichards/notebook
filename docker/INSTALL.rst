@@ -30,7 +30,6 @@ Ensure you have the prereqs
    ~$ sudo apt-get install apt-transport-https ca-certificates curl 
    ~$ sudo apt-get install gnupg-agent software-properties-common 
 
-    
 If you do not care about the latest version
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
