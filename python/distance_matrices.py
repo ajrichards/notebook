@@ -10,6 +10,7 @@ cdist can work as well when we have only 2 dimensions
 """
 
 import numpy as np
+import scipy.spatial.distance as dist
 from scipy.spatial.distance import cdist,pdist,squareform
 
 ## try to think of all possible distances between obsevations as a matrix
@@ -44,7 +45,7 @@ print("\ngot some new observation...")
 next_obs = np.array([[0,1,0]])
 for i in range(x.shape[0]):
     obs_i = x[i,:]
-    dist1 = dist.euclidean(obs_i,next_obs)                                ## using scipy
+    dist1 = dist.dist.euclidean(obs_i,next_obs)                                ## using scipy
     dist2 = np.linalg.norm(obs_i-next_obs)                                ## using norm of the difference
     dist3 = np.sqrt(np.sum( (a - b)**2 for a, b in zip(obs_i, next_obs))) ## by hand
     print(dist1,dist2,dist3)

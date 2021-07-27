@@ -25,19 +25,33 @@ How to get ssh working
 
 Create a new key for each computer
 
-  * ~$ ssh-keygen -t rsa -C "frodob@gmail.com"
-  * ~$ ssh-add ~/.ssh/id_rsa
-  * ~$ xclip -sel clip < ~/.ssh/id_rsa.pub
-  * ~$ got to [[https://github.com/settings/ssh]] and click on 'add key' and paste it in
+.. code-block:: bash
 
-Test it
-* ssh -T git@github.com
+    ~$ ssh-keygen -t rsa -C "frodob@gmail.com"
+    ~$ ssh-add ~/.ssh/id_rsa
+    ~$ xclip -sel clip < ~/.ssh/id_rsa.pub
+    ~$ got to `github keys <https://github.com/settings/ssh>`_ or `bitbucket keys <https://bitbucket.org/account/settings/ssh-keys/>`_ and click on 'add key' to paste
 
+
+.. code-block:: bash
+	
+    ~$ ssh -T git@github.com
+
+or
+
+.. code-block:: bash
+
+    ~$ ssh -T git@bitbucket.org 
+    
+Additional resources:
+
+    * `bitbucket key setup <https://support.atlassian.com/bitbucket-cloud/docs/set-up-an-ssh-key/>`_
+    * `GitHub key setup <https://docs.github.com/en/enterprise-server@3.0/github/authenticating-to-github/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account>`_  
 
 If your ssh keys do not have the correct permissions
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-.. code-block: bash
+.. code-block:: bash
 
    ~$ chmod 700 ~/.ssh
    ~$ chmod 644 ~/.ssh/authorized_keys
