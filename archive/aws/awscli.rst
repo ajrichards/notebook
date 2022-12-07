@@ -19,11 +19,9 @@ and this guide is really just a shortened version of that document.
 Install
 -----------------
 
-.. code-block:: bash
+Use the install guide that is specific to your system:
 
-  ~$ pip install awscli --upgrade 
-
-For more info check out the `aws install docs <http://docs.aws.amazon.com/cli/latest/userguide/installing.html>`_
+- `awscli install docs <https://docs.aws.amazon.com/cli/latest/userguide/getting-started-install.html>`_
   
 Setting up IAM
 ----------------
@@ -37,14 +35,11 @@ This matters because anyone that has access to your root account
 information which includes CC info. Thus we should set up a Admin
 user account that sandboxed from accessing billing information.
 
-1. go too *My Account* --> AWS management console
-2. click on IAM
-3. customize your signin link e.g.
+1. Once you are logged in as root Search for IAM Dashboard and go to the service
+2. 'Access Management' --> 'Users'
 
-   https://frodob.signin.aws.amazon.com/console 
-
-4. create a new user:
-   * click on *Users*
+3. Create a new user:
+   * click on *Add User*
    * Create a user name and select Programmatic access and AWS Management Console access
    * create a password for this user
 
