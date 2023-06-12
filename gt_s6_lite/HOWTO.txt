@@ -1,0 +1,37 @@
+## Install custom ROM on Samsung Galaxy Tab S6 Lite
+
+
+* Model - SM-P610
+* Source - https://wiki.lineageos.org/devices/gta4xlwifi/install
+
+
+## Install the stuff needed (on ubuntu)
+
+   ```bash
+   ~$ sudo apt update
+   ~$ sudo apt install android-tools-adb android-tools-fastboot
+   ~$ sudo apt install heimdall-flash
+   ```
+
+
+Test it
+
+   ```bash
+   ~$ heimdall version
+   ~$ adb version
+   ~$ adb devices
+   ```
+
+## basic process
+
+   1. enable developer options
+   2. enable oem unlocking and usb debugging in 'developer options'
+   3. 
+
+
+## These are the commands I used
+
+   ```bash
+   ~$ adb sideload ~/Downloads/lineage-20.0-20230607-nightly-gta4xlwifi-signed.zip
+   ~$ adb sideload ~/Downloads/MindTheGapps-13.0.0-arm64-20230408_162909.zip
+   ```

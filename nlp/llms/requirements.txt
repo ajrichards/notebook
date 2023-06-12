@@ -1,0 +1,8 @@
+numpy
+pandas
+matplotlib
+seaborn
+plotly
+jupyterlab
+accelerate>=0.12.0
+transformers[torch]==4.25.1
