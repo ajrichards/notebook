@@ -5,4 +5,4 @@ seaborn
 plotly
 jupyterlab
 accelerate>=0.12.0
-transformers[torch]==4.25.1
+transformers[torch]==5.0.0rc3
